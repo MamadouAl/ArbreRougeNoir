@@ -8,7 +8,7 @@ import java.util.Iterator;
  *     Implementation de l'interface Collection basée sur les Arbre Rouge-noire
  *     @auteur Mamadou Aliou Diallo
  *      @version 1.5
- *      @date 10-11-2023 dernier mise à jour
+ *      @date 11-11-2023 dernier mise à jour
  *
  * </p>
  */
