@@ -22,8 +22,7 @@ public class ARN<E> extends AbstractCollection<E> {
     private Noeud racine;
     private int taille;
     private Noeud sentinelle;
-	//private Comparator<Object> cmp;
-    private Comparator<? super E> cmp; //A verifier !! car produit des erreurs de compilation 
+    private Comparator<? super E> cmp; 
 
     //Classe Noeud
     private class Noeud {
