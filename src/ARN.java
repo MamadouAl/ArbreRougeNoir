@@ -15,18 +15,18 @@ import java.util.Iterator;
 
 /**
  *
- * @param <E>
+ * @param <E> le type des clés stockées dans l'arbre
  */
 public class ARN<E> extends AbstractCollection<E> {
     //Attributs
     private Noeud racine;
     private int taille;
     private Noeud sentinelle;
-	private Comparator<Object> cmp;
-    //private Comparator<? super E> cmp; //A verifier !! car produit des erreurs de compilation 
+	//private Comparator<Object> cmp;
+    private Comparator<? super E> cmp; //A verifier !! car produit des erreurs de compilation 
 
     //Classe Noeud
-    private class Noeud<E> {
+    private class Noeud {
         private E cle;
         private Noeud gauche;
         private Noeud droit;
@@ -40,6 +40,14 @@ public class ARN<E> extends AbstractCollection<E> {
             this.pere = null;
             couleur = 'R';
 
+        }
+
+        Noeud(E cle, char color){
+            this.cle = cle;
+            this.gauche = null;
+            this.droit = null;
+            this.pere = null;
+            couleur = color;
         }
 
         /**
@@ -65,8 +73,8 @@ public class ARN<E> extends AbstractCollection<E> {
          *         grande clé
          */
         public Noeud suivant() {
-            if (droit != sentinelle) {
-                return droit.minimum();
+            if (this.droit != sentinelle) {
+                return this.droit.minimum();
             }
             Noeud y = pere;
             Noeud x = this;
@@ -85,10 +93,10 @@ public class ARN<E> extends AbstractCollection<E> {
      * Crée un arbre vide. Les éléments sont ordonnés selon l'ordre naturel
      */
     public ARN() {
-        sentinelle = sentinelle();
-        racine = sentinelle;
+        sentinelle = new Noeud(null, 'N');
+        racine = this.sentinelle;
         taille = 0;
-        cmp = (a, b) -> ((Comparable<E>) a).compareTo((E)b);    
+        cmp = (a, b) -> ((Comparable) a).compareTo(b);
     }
 
     /**
@@ -99,8 +107,8 @@ public class ARN<E> extends AbstractCollection<E> {
      */
     public ARN(Comparator<? super E> cmp) {
         taille = 0;
-        sentinelle = sentinelle();
-        racine = sentinelle;
+        sentinelle = new Noeud(null, 'N');
+        racine = this.sentinelle;
         this.cmp = cmp;
     }
 
@@ -243,18 +251,7 @@ public class ARN<E> extends AbstractCollection<E> {
         n.pere = y;
     }
 
-    /**
-     * Crée et renvoie un nouveau noeud utilisé comme sentinelle pour représenter
-     * les noeuds externes dans l'arbre rouge-noir. La sentinelle est de couleur noire.
-     *
-     * @return La sentinelle de l'arbre rouge-noir.
-     */
-    private Noeud sentinelle(){
-        Noeud s = new Noeud(null); //null;
-        s.pere = s.gauche = s.droit = s;
-        s.couleur ='N'; //pour noir
-        return s;
-    }
+   
 
     /**
      * Renvoie un itérateur sur les éléments de l'arbre rouge-noir, permettant de
