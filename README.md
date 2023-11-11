@@ -13,3 +13,5 @@ Déposez une archive unique contenant
     - vos fichiers source (implantation des ABR et ANR, tests, programmes ayant servi pour l'étude expérimentale) ;
     - le rapport en format pdf.
 
+    -arbre équilibré ?
+
