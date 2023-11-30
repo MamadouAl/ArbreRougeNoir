@@ -22,7 +22,7 @@ public class ARN<E> extends AbstractCollection<E> {
     private Noeud racine;
     private int taille;
     private Noeud sentinelle;
-    private Comparator<? super E> cmp; 
+    private Comparator<? super E> cmp;
 
     //Classe Noeud
     private class Noeud {
@@ -215,7 +215,7 @@ public class ARN<E> extends AbstractCollection<E> {
         }
         racine.couleur = 'N';
     }
-    
+
     /**
      * Effectue une rotation gauche sur le noeud donné.
      *
@@ -232,7 +232,7 @@ public class ARN<E> extends AbstractCollection<E> {
         y.gauche = n;
         n.pere = y;
     }
-    
+
     /**
      * Effectue une rotation droite sur le noeud donné.
      *
@@ -250,7 +250,7 @@ public class ARN<E> extends AbstractCollection<E> {
         n.pere = y;
     }
 
-   
+
 
     /**
      * Renvoie un itérateur sur les éléments de l'arbre rouge-noir, permettant de
@@ -300,7 +300,7 @@ public class ARN<E> extends AbstractCollection<E> {
         return rechercher(o) != sentinelle;
     }
 
-     /**
+    /**
      * Supprime le noeud z. Cette méthode peut être utilisée dans
      * {@link #remove(Object)} et {@link Iterator#remove()}
      *
@@ -309,6 +309,7 @@ public class ARN<E> extends AbstractCollection<E> {
      *         clés. Cette valeur de retour peut être utile dans
      *         {@link Iterator#remove()}
      */
+    /*
     private Noeud supprimer(Noeud z) {
         Noeud y;
         Noeud x;
@@ -324,7 +325,7 @@ public class ARN<E> extends AbstractCollection<E> {
             x = y.droit;
             // x est le fils unique de y ou la sentinelle si y n'a pas de fils
         }
-        
+
         x.pere = y.pere;
 
         if (y.pere == sentinelle) {  // suppression de la racine
@@ -340,6 +341,50 @@ public class ARN<E> extends AbstractCollection<E> {
         if (y.couleur == 'N') supprimerCorrection(x);
         taille--;
         return y;
+    }
+
+     */
+    private Noeud supprimer(Noeud z) {
+        // TODO
+        Noeud y,s;
+        if (z.gauche == sentinelle || z.droit == sentinelle)
+            y = z;
+        else
+            y = z.suivant();
+        // y est le nœud à détacher
+
+        s =z.suivant();
+        Noeud x;
+        if (y.gauche != sentinelle)
+            x = y.gauche;
+        else
+            x = y.droit;
+        // x est le fils unique de y ou la sentinelle si y n'a pas de fils
+
+        x.pere = y.pere; // inconditionnelle
+
+        if (y.pere == sentinelle) { // suppression de la racine
+            racine = x;
+        } else {
+            if (y == y.pere.gauche)
+                y.pere.gauche = x;
+            else
+                y.pere.droit = x;
+        }
+
+        if (y != z) z.cle = y.cle;
+        if (y.couleur == 'N') supprimerCorrection(x);
+		//Recyclage :)
+        if (y != z){
+            z.cle = y.cle;
+            s = z;
+        }
+
+        y.pere = null;
+        y.droit = null;
+        y.gauche = null;
+
+        return s;
     }
 
     /**
@@ -420,54 +465,37 @@ public class ARN<E> extends AbstractCollection<E> {
      * de l'arbre rouge-noir dans l'ordre croissant.
      */
     private class ARNIterator implements Iterator<E> {
+        // TODO
         private Noeud precedent;
         private Noeud suivant;
 
-
-        /**
-         * Initialise un nouvel itérateur en positionnant le suivant sur le nœud
-         * contenant la clé minimale de l'arbre.
-         */
         public ARNIterator() {
             precedent = sentinelle;
-            suivant = racine.minimum();
+            if(racine == sentinelle) suivant=sentinelle;
+            else suivant = racine.minimum();
         }
 
-        /**
-         * Vérifie s'il existe un élément suivant dans l'arbre rouge-noir.
-         *
-         * @return  true s'il y a un élément suivant, false sinon.
-         */
+
         public boolean hasNext() {
+            // TODO
             return suivant != sentinelle;
         }
 
-        /**
-         * Renvoie l'élément suivant dans l'ordre croissant de l'arbre.
-         *
-         * @return L'élément suivant.
-         * @throws IllegalStateException Si aucun élément suivant n'est présent.
-         */
         public E next() throws IllegalStateException {
+            // TODO
             if (!hasNext()) {
                 throw new IllegalStateException();
             }
             precedent = suivant;
-            suivant = suivant.suivant();
-            return (E) precedent.cle;
+            suivant = precedent.suivant();
+            return precedent.cle;
 
         }
 
-        /**
-         * Supprime l'élément actuellement pointé par l'itérateur.
-         *
-         * @throws IllegalStateException Si aucun élément à supprimer n'est présent.
-         */
         public void remove() throws IllegalStateException {
-            if (precedent == null) {
-                throw new IllegalStateException();
-            }
-            supprimer(precedent);
+            // TODO
+            if (precedent == sentinelle) throw new IllegalStateException();
+            suivant = supprimer(precedent);
             precedent = sentinelle;
 
         }
