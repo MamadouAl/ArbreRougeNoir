@@ -1,4 +1,4 @@
-# Arbre Rouge Noire
+# Arbre Rouge Noir
 
 Le but de ce TP est de faire une implémentation de l'interface Collection basée sur les arbres rouge-noir. Testez largement votre implantation afin de vous assurer que toutes les méthodes fonctionnent comme prévu dans tous les cas possibles et imaginables.
 
