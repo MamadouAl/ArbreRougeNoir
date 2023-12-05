@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class MainTest {
+public class MainTestInsertion {
     public static void main(String[] args) {
         // Taille_max des arbres
         int taille = 100_000;

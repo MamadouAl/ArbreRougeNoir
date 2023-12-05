@@ -16,15 +16,12 @@ public class MainTestRech {
         System.out.printf("%12s%12s%12s%n", "TAILLE", "ABR_1(ms)", "ARN_1(ms)");
         // Construction de l'ABR et l'ARN
         Random random = new Random();
-
-
         for (int i = incremente; i < taille; i += incremente) {
-
             for (int k = 0; k < i; k++) {
                 stockeValeur[k] = random.nextInt(1000);
             }
 
-            //Ajout dans ABR
+            //Ajout dans ABR ET L'ARN
             for (int indice = 0; indice < i; indice++) {
                 abr.add(stockeValeur[indice]);
                  arn.add(stockeValeur[indice]);
@@ -46,7 +43,7 @@ public class MainTestRech {
 
             System.out.printf("%12d%12d%12d%n", i, t1, t3);
         }
-        
+
 
         ABR<Integer> abr2 = new ABR<>();
         ARN<Integer> arn2 = new ARN<>();
@@ -72,6 +69,6 @@ public class MainTestRech {
             long t3 = System.currentTimeMillis() - t2;
             System.out.printf("%12d%12d%12d%n", indice, t1, t3);
         }
-        
+
     }
 }
