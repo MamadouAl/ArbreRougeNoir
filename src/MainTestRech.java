@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class MiainTestRech {
+public class MainTestRech {
     public static void main(String[] args) {
         //Taille des arbres
         int taille = 70000;
