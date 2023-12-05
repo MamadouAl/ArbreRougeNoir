@@ -8,7 +8,7 @@ import java.util.Iterator;
  *     Implementation de l'interface Collection basée sur les Arbre Rouge-noire
  *     @auteur Mamadou Aliou Diallo
  *      @version 2 -- "fonctionnel"
- *      @date 05-12-2023 dernier mise à jour
+ *      @date 05-12-2023 derniere mise à jour
  *
  * </p>
  */
@@ -339,12 +339,13 @@ public class ARN<E> extends AbstractCollection<E> {
      */
     private Noeud supprimer(Noeud z) {
         // TODO
-        Noeud y,  ecolo;
+        Noeud y;
+        Noeud tmp;
         if (z.gauche == sentinelle || z.droit == sentinelle)
             y = z;
         else
             y = z.suivant();
-        ecolo = z.suivant();
+        tmp = z.suivant();
         Noeud x;
         if (y.gauche != sentinelle)
             x = y.gauche;
@@ -352,7 +353,7 @@ public class ARN<E> extends AbstractCollection<E> {
             x = y.droit;
 
         x.pere = y.pere;
-        if (y.pere == sentinelle) { // suppression de la racine
+        if (y.pere == sentinelle) { // cas de la racine
             racine = x;
         } else {
             if (y == y.pere.gauche)
@@ -369,12 +370,12 @@ public class ARN<E> extends AbstractCollection<E> {
 		//Recyclage :)
         if (y != z){
             z.cle = y.cle;
-            ecolo = z;
+            tmp = z;
         }
         y.pere = null;
         y.droit = null;
         y.gauche = null;
-        return ecolo;
+        return tmp;
     }
 
     /**
@@ -446,7 +447,6 @@ public class ARN<E> extends AbstractCollection<E> {
                 }
             }
         }
-        // (**) est vérifié ici
         x.couleur = 'N';
     }
 

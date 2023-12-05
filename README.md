@@ -4,8 +4,8 @@ Ce travail vise à implémenter l'interface Collection à l'aide des arbres roug
 
 ## Objectifs du Projet
 
-    - Implémentation de l'interface Collection
-    - Étude Expérimentale
+Implémentation de l'interface Collection
+Étude Expérimentale
     
 
 ## Réalisé par 

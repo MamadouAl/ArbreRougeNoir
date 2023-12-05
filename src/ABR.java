@@ -194,60 +194,26 @@ public class ABR<E> extends AbstractCollection<E> {
      *         clés. Cette valeur de retour peut être utile dans
      *         {@link Iterator#remove()}
      */
-
     private Noeud supprimer(Noeud z) {
         // TODO
         Noeud y;
-        Noeud x;
-        if (z.gauche == null || z.droit == null) {
-            y = z;
-        } else {
-            y = z.suivant();
-        }
-        if (y.gauche != null) {
-            x = y.gauche;
-        } else {
-            x = y.droit;
-        }
-        if (x != null) {
-            x.pere = y.pere;
-        }
-        if (y.pere == null) {
-            racine = x;
-        } else if (y == y.pere.gauche) {
-            y.pere.gauche = x;
-        } else {
-            y.pere.droit = x;
-        }
-        if (y != z) {
-            z.cle = y.cle;
-        }
-        taille--;
-
-        return y;
-    }
-    /*
-    private Noeud supprimer(Noeud z) {
-        // TODO
-        Noeud y,s;
+        Noeud tmp ;
         if (z.gauche == null || z.droit == null)
             y = z;
         else
             y = z.suivant();
-        // y est le nœud à détacher
-
-        s = z.suivant();
+            
+        tmp = z.suivant();
 
         Noeud x;
         if (y.gauche != null)
             x = y.gauche;
         else
             x = y.droit;
-        // x est le fils unique de y ou null si y n'a pas de fils
 
         if (x != null) x.pere = y.pere;
 
-        if (y.pere == null) { // suppression de la racine
+        if (y.pere == null) { // cas la racine
             racine = x;
         } else {
             if (y == y.pere.gauche)
@@ -258,17 +224,17 @@ public class ABR<E> extends AbstractCollection<E> {
 
         if (y != z){
             z.cle = y.cle;
-            s = z;
+            tmp = z;
         }
 
         y.pere = null;
         y.droit = null;
         y.gauche = null;
 
-        return s;
+        return tmp;
     }
 
-     */
+     
 
     /**
      * Les itérateurs doivent parcourir les éléments dans l'ordre ! Ceci peut se
