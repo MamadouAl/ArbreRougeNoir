@@ -71,6 +71,10 @@ public class MainTestSup {
 
             System.out.printf("%12d%12d%12d%n", indice, t1, t3);
         }
+        System.out.println("abr1 suprrimé ?"+abr1);
+        System.out.println("abr2 suprrimé ?"+ abr2);
+        System.out.println("arn1 suprrimé ?"+ arn1);
+        System.out.println("arn2 suprrimé ?" +arn2);
 
 
     }

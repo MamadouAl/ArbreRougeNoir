@@ -2,6 +2,7 @@ import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
+       //Test d'echauffement :)
 
         ARN<String> arbre = new ARN<String>();
         arbre.add("g");
@@ -29,18 +30,15 @@ public class Main {
         arbre2.add(10);
         System.out.println(arbre2);
 
-
-
-
         ARN<Integer> arbre3 = new ARN<>();
-        for(int i=0; i<50; i++)
+        for(int i=0; i<20; i++)
             arbre3.add(i);
 
 
         System.out.println("Suppression ....");
         for(Iterator<Integer> it = arbre3.iterator(); it.hasNext(); ) {
             Integer i = it.next();
-            if(i == 23)
+            if(i == 13)
                 it.remove();
             else
                 System.out.println(i);

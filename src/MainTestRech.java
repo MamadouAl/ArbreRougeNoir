@@ -48,7 +48,9 @@ public class MainTestRech {
         ABR<Integer> abr2 = new ABR<>();
         ARN<Integer> arn2 = new ARN<>();
 
-
+        /*
+            Recherche de 0 à 2N (sachant que les N prèmiers sont présentes dans l'arbre et les N autres n'y sont pas)
+         */
         System.out.println("***** Recherche de clefs croissantes *************");
         System.out.printf("%12s%12s%12s%n", "TAILLE", "ABR_2(ms)", "ARN_2(ms)");
         for(int indice = incremente; indice < taille; indice += incremente) {
