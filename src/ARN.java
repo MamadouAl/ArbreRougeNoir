@@ -7,8 +7,8 @@ import java.util.Iterator;
  * <p>
  *     Implementation de l'interface Collection basée sur les Arbre Rouge-noire
  *     @auteur Mamadou Aliou Diallo
- *      @version 1.5
- *      @date 11-11-2023 dernier mise à jour
+ *      @version 2 -- "fonctionnel"
+ *      @date 05-12-2023 dernier mise à jour
  *
  * </p>
  */
@@ -122,6 +122,7 @@ public class ARN<E> extends AbstractCollection<E> {
         addAll(c);
     }
 
+
     @Override
     public boolean addAll(Collection<? extends E> c) {
         boolean modif = false;
@@ -133,6 +134,20 @@ public class ARN<E> extends AbstractCollection<E> {
         return modif;
     }
 
+
+    /**
+     * Fonction qui permet de nettoyer l'arbre, supprimer tous les éléments
+     */
+    @Override
+    public void clear() {
+        racine = sentinelle;
+        taille = 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return taille == 0;
+    }
     @Override
     public boolean add(E e) {
         Noeud z = new Noeud(e);
@@ -301,6 +316,19 @@ public class ARN<E> extends AbstractCollection<E> {
     }
 
     /**
+     * Supprime une collection d'éléments de l'arbre rouge-noir.
+     * @param c
+     * @return
+     */
+    @Override
+    public boolean containsAll(Collection<?> c){
+        for (Object o : c){
+            if (!contains(o)) return false;
+        }
+        return true;
+    }
+
+    /**
      * Supprime le noeud z. Cette méthode peut être utilisée dans
      * {@link #remove(Object)} et {@link Iterator#remove()}
      *
@@ -309,60 +337,21 @@ public class ARN<E> extends AbstractCollection<E> {
      *         clés. Cette valeur de retour peut être utile dans
      *         {@link Iterator#remove()}
      */
-    /*
-    private Noeud supprimer(Noeud z) {
-        Noeud y;
-        Noeud x;
-        if (z.gauche == sentinelle || z.droit == sentinelle) {
-            y = z;
-        } else {
-            y = z.suivant();
-            // y est le nœud à détacher
-        }
-        if (y.gauche != sentinelle) {
-            x = y.gauche;
-        } else {
-            x = y.droit;
-            // x est le fils unique de y ou la sentinelle si y n'a pas de fils
-        }
-
-        x.pere = y.pere;
-
-        if (y.pere == sentinelle) {  // suppression de la racine
-            racine = x;
-        } else if (y == y.pere.gauche) {
-            y.pere.gauche = x;
-        } else {
-            y.pere.droit = x;
-        }
-        if (y != z) {
-            z.cle = y.cle;
-        }
-        if (y.couleur == 'N') supprimerCorrection(x);
-        taille--;
-        return y;
-    }
-
-     */
     private Noeud supprimer(Noeud z) {
         // TODO
-        Noeud y,s;
+        Noeud y,  ecolo;
         if (z.gauche == sentinelle || z.droit == sentinelle)
             y = z;
         else
             y = z.suivant();
-        // y est le nœud à détacher
-
-        s =z.suivant();
+        ecolo = z.suivant();
         Noeud x;
         if (y.gauche != sentinelle)
             x = y.gauche;
         else
             x = y.droit;
-        // x est le fils unique de y ou la sentinelle si y n'a pas de fils
 
-        x.pere = y.pere; // inconditionnelle
-
+        x.pere = y.pere;
         if (y.pere == sentinelle) { // suppression de la racine
             racine = x;
         } else {
@@ -372,19 +361,20 @@ public class ARN<E> extends AbstractCollection<E> {
                 y.pere.droit = x;
         }
 
-        if (y != z) z.cle = y.cle;
-        if (y.couleur == 'N') supprimerCorrection(x);
+        if (y != z) {
+            z.cle = y.cle;
+        }
+        if (y.couleur == 'N')
+            supprimerCorrection(x);
 		//Recyclage :)
         if (y != z){
             z.cle = y.cle;
-            s = z;
+            ecolo = z;
         }
-
         y.pere = null;
         y.droit = null;
         y.gauche = null;
-
-        return s;
+        return ecolo;
     }
 
     /**
@@ -500,6 +490,27 @@ public class ARN<E> extends AbstractCollection<E> {
 
         }
     }
+
+    //Méthodes de suppression
+    @Override
+    public boolean remove(Object o) {
+        Noeud z = rechercher(o);
+        if (z == sentinelle) return false;
+        supprimer(z);
+        return true;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        boolean sup = false;
+        for (Object o : c) {
+            if (remove(o)) {
+                sup = true;
+            }
+        }
+        return sup;
+    }
+
 
     // Pour un "joli" affichage
 
